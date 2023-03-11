@@ -10,7 +10,6 @@ const pool = new pg.Pool({
     port: 5432
 });
 
-
 // GET
 router.get('/', (req, res) => {
     console.log('Inside of GET');
@@ -23,9 +22,6 @@ router.get('/', (req, res) => {
         res.sendStatus(500);
     });
 })
-
-
-
 
 // POST
 router.post('/', (req, res) => {
@@ -47,20 +43,40 @@ router.post('/', (req, res) => {
             });
 });
 
-
-
-
 // PUT
+router.put('/checkcomplete/:id', (req, res) => {
+    const taskId = req.params.id;
+    console.log('Task to check off as complete:', req.params.id);
 
+    const query = `
+        UPDATE "todo" SET "completed" = 'true' WHERE "id"=$1;
+    `;
 
-
-
+    pool.query(query, [taskId])
+    .then((result) => {
+        console.log("Update successful for task id:", taskId);
+        res.sendStatus(200);  
+    }).catch((err) => {
+        console.log('Error making update to task id:', taskId, err);
+        console.log('Update query:', query);
+        res.sendStatus(500);
+    });
+});
 
 // DELETE
+router.delete('/delete/:id', (req,res) => {
+    console.log("Inside of /:id, DELETE request: ");
+    const idToDelete = req.params.id;
+    const query = 'DELETE FROM "todo" WHERE "id"=$1;';
 
-
-
-
-
+        pool.query(query, [idToDelete])
+        .then((result) => {
+            console.log("Successful deletion of id:", idToDelete);
+            res.sendStatus(200)
+        }).catch((error) => {
+            console.log(`Error in making query:, ${query}`, error)
+            res.sendStatus(500)
+        });
+});
 
 module.exports = router;

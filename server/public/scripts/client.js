@@ -5,6 +5,12 @@ function onReady() {
 
     // Click listener for add task button
     $('#addTask').on('click', addTask);
+
+    // Click listener for check off task as complete
+    $('#taskList').on('click', '#complete', checkComplete)
+
+    // Click listener for deleting tasks
+    $('#taskList').on('click', '#deleteBtn', deleteTask)
 }
 
 // POST
@@ -29,7 +35,7 @@ function addTask() {
 
      // Clear input values
      $('#task').val('');
-     
+
 } // end addTask
 
 // GET
@@ -57,11 +63,57 @@ function renderTasks(incomingTasks) {
 
     for (let task of incomingTasks) {
         // loop through incomingTasks and append
+        if (task.completed){
         $('#taskList').append(`
             <tr data-id=${task.id}>
+                <td><input type="checkbox" id="complete" checked></td>
                 <td>${task.task}</td>
-                <td>Checkbox Goes Here</td>
                 <td><button id="deleteBtn">X</button></td>
+            </tr>
         `);
+        } else {
+            $('#taskList').append(`
+            <tr data-id=${task.id}>
+                <td><input type="checkbox" id="complete"></td>
+                <td>${task.task}</td>
+                <td><button id="deleteBtn">X</button></td>
+            </tr>
+        `);
+        }
     }
 } // end renderTasks
+
+// PUT
+function checkComplete() {
+    console.log('Inside checkComplete()', $(this));
+    const idToUpdate = $(this).parent().parent().data().id;
+    console.log('Id to update:', idToUpdate);
+  
+    $.ajax({
+      method: 'PUT',
+      url: `/todo/checkcomplete/${idToUpdate}`
+    }).then((response) => {
+      // Call GET
+      getTasks();
+    }).catch((err) => {
+      alert('error on checkComplete route', err);
+    });
+  } // end PUT
+
+// DELETE
+function deleteTask() {
+    console.log("Inside of deleteTask: ", $(this));
+
+    const idToDelete = $(this).parent().parent().data().id;
+    console.log("Id to Delete: ", idToDelete);
+
+    $.ajax({
+        method: 'DELETE',
+        url: `/todo/delete/${idToDelete}`
+    }).then((response) => {
+        console.log("Deletion completed for id:", idToDelete);
+        getTasks();
+    }).catch((error) => {
+        console.log("Error making DB deletion for id:", idToDelete, error)
+    });
+} // end DELETE
