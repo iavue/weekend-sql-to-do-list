@@ -67,7 +67,7 @@ function renderTasks(incomingTasks) {
         $('#taskList').append(`
             <tr data-id=${task.id}>
                 <td><input type="checkbox" id="complete" checked></td>
-                <td>${task.task}</td>
+                <td class='completed-task'>${task.task}</td>
                 <td><button id="deleteBtn">X</button></td>
             </tr>
         `);
