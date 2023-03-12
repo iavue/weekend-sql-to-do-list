@@ -17,6 +17,11 @@ function onReady() {
 function addTask() {
     console.log('Inside addTask()');
 
+    if ($('#task').val() === '') {
+        alert('Please enter a task.');
+        return;
+    }
+
     let objectToSend = {
         task: $('#task').val()
     };
@@ -35,6 +40,9 @@ function addTask() {
 
      // Clear input values
      $('#task').val('');
+
+     // Keep cursor inside input
+     $('#task').focus();
 
 } // end addTask
 
