@@ -1,8 +1,10 @@
-$(document).ready(onReady);
+$(document).ready(function(){
+    console.log('jQuery loaded!');
+    getTasks();
+    createClickListeners();
+  });
 
-function onReady() {
-    console.log('jQuery is loaded!');
-
+function createClickListeners() {
     // Click listener for add task button
     $('#addTask').on('click', addTask);
 
@@ -75,8 +77,8 @@ function renderTasks(incomingTasks) {
         $('#taskList').append(`
             <tr data-id=${task.id}>
                 <td><input type="checkbox" id="complete" checked></td>
-                <td class='completed-task'>${task.task}</td>
-                <td><button id="deleteBtn">X</button></td>
+                <td class="completed-task">${task.task}</td>
+                <td><button id="deleteBtn" class="btn btn-danger">X</button></td>
             </tr>
         `);
         } else {
@@ -84,7 +86,7 @@ function renderTasks(incomingTasks) {
             <tr data-id=${task.id}>
                 <td><input type="checkbox" id="complete"></td>
                 <td>${task.task}</td>
-                <td><button id="deleteBtn">X</button></td>
+                <td><button id="deleteBtn" class="btn btn-danger">X</button></td>
             </tr>
         `);
         }

@@ -1,3 +1,49 @@
-.completed-task {
-    background-color: green;
+html, body {
+    height: 100%;
 }
+
+body {
+    background: linear-gradient(to bottom, #bdd9eb, #8e44ad);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.completed-task {
+    background-color: rgba(188, 241, 188, 0.642); 
+} 
+
+h1 {
+    font-family: Pangolin;
+}
+
+.createTasks {
+    margin-top: 20px;
+}
+
+#task {
+    width: 30%;
+    margin-bottom: 30px;
+}
+  
+#addTask {
+    width: 10%;
+}
+
+h2 {
+    font-family: Pangolin;
+    font-size: 30px;
+}
+
+table {
+    margin-top: 20px;
+}
+
+#task-width {
+    padding-right: 150px;
+}
+
+td {
+    font-family: Pangolin;
+    font-size: 20px;
+}
+
