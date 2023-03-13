@@ -1,6 +1,6 @@
 CREATE TABLE "todo" (
 	"id" serial primary key,
-	"completed" boolean,
+	"completed" boolean default false,
 	"task" varchar(100) not null
 );
 

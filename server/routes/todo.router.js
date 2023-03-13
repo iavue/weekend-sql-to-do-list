@@ -49,7 +49,7 @@ router.put('/checkcomplete/:id', (req, res) => {
     console.log('Task to check off as complete:', req.params.id);
 
     const query = `
-        UPDATE "todo" SET "completed" = 'true' WHERE "id"=$1;
+        UPDATE "todo" SET "completed" = NOT "completed" WHERE "id"=$1;
     `;
 
     pool.query(query, [taskId])
