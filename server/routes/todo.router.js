@@ -1,14 +1,17 @@
 // Setup PG to connect to the database
 const express = require('express');
 const router = express.Router();
-const pg = require('pg'); 
+// const pg = require('pg'); MOVED TO pool.js
+
+// Added after moving pool to pool.js module
+const pool = require("../modules/pool.js");
 
 // DB Connection
-const pool = new pg.Pool({
-    database: 'weekend-to-do-app',
-    host: 'localhost',
-    port: 5432
-});
+// const pool = new pg.Pool({
+//     database: 'weekend-to-do-app',
+//     host: 'localhost',
+//     port: 5432
+// }); MOVED TO pool.js
 
 // GET
 router.get('/', (req, res) => {
